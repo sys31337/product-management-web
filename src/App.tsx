@@ -8,6 +8,7 @@ const Home = React.lazy(() => import('./modules/Home'));
 const Login = React.lazy(() => import('./modules/Authentication/Login'));
 const Signup = React.lazy(() => import('./modules/Authentication/Signup'));
 const Products = React.lazy(() => import('./modules/Products'));
+const Categories = React.lazy(() => import('./modules/Categories'));
 /* Modules */
 
 const App = () => (
@@ -23,6 +24,7 @@ const App = () => (
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/products/*" element={<Products />} />
+                <Route path="/categories/*" element={<Categories />} />
               </Routes>
             </PrivateRoute>
           }
