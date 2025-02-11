@@ -31,8 +31,7 @@ const refreshAccessToken = async (currentRefreshToken: string) => {
 };
 
 const getUserAccessToken = () => {
-  const accessToken = (cacheService.get('USER_INFO') as Payload)?.accessToken;
-  const refreshToken = (cacheService.get('USER_INFO') as Payload)?.refreshToken;
+  const { accessToken, refreshToken } = (cacheService.get('USER_INFO') as Payload) || {};
   return { accessToken, refreshToken };
 };
 

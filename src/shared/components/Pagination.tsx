@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePagination, DOTS, paginationProps } from '@/shared/hooks/usePagination';
+import { Pagination as ShadPagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 
 const Pagination = (props: paginationProps) => {
   const {
@@ -32,37 +33,37 @@ const Pagination = (props: paginationProps) => {
       onPageChange(currentPage - 1);
     }
   };
-
-  // const lastPage = paginationRange && paginationRange[paginationRange.length - 1];
+  const lastPage = paginationRange && paginationRange[paginationRange.length - 1];
 
   return (
-    <div className={'gap-1 justify-center mt-10'}>
-      <button
-        className={'bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-3xl text-white'}
-        onClick={onPrevious}>
-        {'<'}
-      </button>
-
-      {paginationRange && paginationRange.map((pageNumber) => {
-        if (pageNumber === DOTS) {
-          return (<button>&#8230;</button>);
-        }
-        return (
-          <button
-            key={pageNumber}
-            className={'bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-3xl text-white'}
-            onClick={() => { if (onPageChange) onPageChange(pageNumber); }}>
-            {pageNumber}
-          </button>
-        );
-      })}
-
-      <button
-        className={'bg-slate-800 hover:bg-slate-700 text-xs font-semibold rounded-3xl text-white'}
-        onClick={onNext}>
-        {'>'}
-      </button>
-    </div>
+    <ShadPagination>
+      <PaginationContent>
+        {currentPage > 1 && (
+          <PaginationItem>
+            <PaginationPrevious onClick={onPrevious} />
+          </PaginationItem>
+        )}
+        {paginationRange && paginationRange.map((pageNumber) => {
+          if (pageNumber === DOTS) {
+            return (
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+            );
+          }
+          return (
+            <PaginationItem key={pageNumber}>
+              <PaginationLink onClick={() => { if (onPageChange) onPageChange(pageNumber); }}>{pageNumber}</PaginationLink>
+            </PaginationItem>
+          );
+        })}
+        {!lastPage && (
+          <PaginationItem>
+            <PaginationNext onClick={onNext} />
+          </PaginationItem>
+        )}
+      </PaginationContent>
+    </ShadPagination>
   );
 };
 
