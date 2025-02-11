@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import cfg from '@/config';
 import axios from 'axios';
 import { logoutUser } from '@/shared/hooks/useAuthentication';
@@ -14,17 +13,18 @@ const addAuthHeaders = (request: Any) => {
 
 const axiosInstance = axios.create({ baseURL: `${cfg.api}/api/v1/` });
 
-const refreshAccessToken = async (refreshToken: string) => {
+const refreshAccessToken = async (currentRefreshToken: string) => {
   const response = await axios.request({
     method: 'POST',
-    url: `${cfg.api}/api/v1/users/token`,
-    data: { refreshToken },
+    url: `${cfg.api}/api/v1/users/refresh`,
+    headers: { Authorization: `Refresh ${currentRefreshToken}` }
   });
+  const { data: { accessToken, refreshToken } } = response;
+  const { userId, fullname } = parseJwt(accessToken);
 
-  const { data: { accessToken: token, refreshToken: newRefreshToken, googleToken } } = response;
-  const { userId: user_id, fullname: full_name } = parseJwt(token);
-
-  const userData = { user_id, full_name, token, refreshToken: newRefreshToken, googleToken };
+  const userData = {
+    userId, fullname, accessToken, refreshToken,
+  };
 
   authService.saveUserInfo(userData);
   return response;
@@ -41,21 +41,20 @@ axiosInstance.interceptors.request.use(
     const { accessToken, refreshToken }: Any = getUserAccessToken();
     if (refreshToken && accessToken) {
       const expiresAt = parseJwt(accessToken).exp;
-      console.log(expiresAt);
-      const currentTime = Math.ceil(Date.now() / 1000);
-      const notExpired = currentTime < expiresAt;
-      if (notExpired) {
-        config.headers.Authorization = `Bearer ${accessToken}`;
-      } else {
+      const currentTime = Math.floor(Date.now() / 1000);
+      const expired = currentTime > expiresAt;
+      if (expired) {
         try {
-          const response = await refreshAccessToken(refreshToken);
-          const { data } = response;
-          const { accessToken: at } = data;
-          config.headers.Authorization = `Bearer ${at}`;
-        } catch (_error) {
+          const { data } = await refreshAccessToken(refreshToken);
+          const { accessToken: newAccessToken } = data;
+          config.headers.Authorization = `Bearer ${newAccessToken}`;
+        } catch (error) {
+          console.log(error);
           authService.resetUserInfo();
           location.replace('/connexion');
         }
+      } else {
+        config.headers.Authorization = `Bearer ${accessToken}`;
       }
     }
     addAuthHeaders(config);
