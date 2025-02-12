@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
-import { Tag } from "lucide-react"
+import { Ellipsis, Tag } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -11,7 +11,6 @@ import Pagination from "@/shared/components/Pagination"
 import { Link, useSearchParams } from "react-router-dom"
 import { useDeleteProduct, useGetProducts } from "@/api/useProduct"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { BiDotsHorizontal } from "react-icons/bi";
 import DeleteConfirmationDialog from "@/shared/components/ConfirmationDialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
@@ -83,7 +82,7 @@ const ProductsList: React.FC<ProductsListProps> = ({ fromHome = false }) => {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button variant="outline" className="w-8 h-8">
-                      <BiDotsHorizontal />
+                      <Ellipsis />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56">
