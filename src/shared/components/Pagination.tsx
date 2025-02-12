@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePagination, DOTS, paginationProps } from '@/shared/hooks/usePagination';
-import { Pagination as ShadPagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import { Pagination as ShadcnPagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
 
 const Pagination = (props: paginationProps) => {
   const {
@@ -34,9 +34,9 @@ const Pagination = (props: paginationProps) => {
     }
   };
   const lastPage = paginationRange && paginationRange[paginationRange.length - 1];
-
+  const isLastPage = lastPage === currentPage
   return (
-    <ShadPagination>
+    <ShadcnPagination>
       <PaginationContent>
         {currentPage > 1 && (
           <PaginationItem>
@@ -46,7 +46,7 @@ const Pagination = (props: paginationProps) => {
         {paginationRange && paginationRange.map((pageNumber) => {
           if (pageNumber === DOTS) {
             return (
-              <PaginationItem>
+              <PaginationItem key={pageNumber}>
                 <PaginationEllipsis />
               </PaginationItem>
             );
@@ -57,13 +57,13 @@ const Pagination = (props: paginationProps) => {
             </PaginationItem>
           );
         })}
-        {!lastPage && (
+        {!isLastPage && (
           <PaginationItem>
             <PaginationNext onClick={onNext} />
           </PaginationItem>
         )}
       </PaginationContent>
-    </ShadPagination>
+    </ShadcnPagination>
   );
 };
 

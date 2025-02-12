@@ -40,7 +40,7 @@ export const useDeleteProduct = () => useMutation({
 });
 
 export const useGetProducts = (page: number, limit: number) => useQuery({
-  queryKey: ['Get products', page],
+  queryKey: ['Get products', page, limit],
   queryFn: () => axiosInstance.request({ method: 'GET', url: 'products', params: { page, limit } }).then(({ data }) => data),
   enabled: !!page,
   gcTime: 0

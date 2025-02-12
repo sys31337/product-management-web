@@ -1,7 +1,11 @@
+export type CategoryStatus = 'active' | 'inactive'
+
 export interface Category {
-  createdAt: Date;
-  name: string;
-  products: string[];
-  status: string;
   _id: string;
+  name: string;
+  description?: string;
+  products?: string[];
+  status: CategoryStatus;
+  createdAt: string;
+  updatedAt: string;
 }
