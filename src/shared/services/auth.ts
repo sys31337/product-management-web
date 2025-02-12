@@ -1,7 +1,6 @@
 import cacheService from '@/shared/services/cache';
 import { Any } from '@/shared/types/any';
-
-type LoggedUserInfo = Any;
+import { LoggedUser } from '../types/user';
 
 class AuthService {
   userInfo?: Any;
@@ -14,14 +13,14 @@ class AuthService {
     return !!this.userInfo?.id && this.userInfo.id !== 'Guest';
   }
 
-  saveUserInfo(userInfo: LoggedUserInfo) {
+  saveUserInfo(userInfo: LoggedUser) {
     this.userInfo = userInfo;
     cacheService.set('USER_INFO', userInfo);
     return userInfo;
   }
 
-  loadUserInfo(): LoggedUserInfo | undefined {
-    return cacheService.get<LoggedUserInfo>('USER_INFO');
+  loadUserInfo(): LoggedUser | undefined {
+    return cacheService.get<LoggedUser>('USER_INFO');
   }
 
   currentUserId() {

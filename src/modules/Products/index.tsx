@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 const CreateProduct = React.lazy(() => import('./pages/CreateProduct'));
 const EditProduct = React.lazy(() => import('./pages/EditProduct'));

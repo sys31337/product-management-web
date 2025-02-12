@@ -3,12 +3,14 @@ import UserMenu from './UserMenu';
 import ErrorBoundary from '../components/ErrorBoundary';
 import Loading from '../components/Loading';
 import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const Layout: React.FC = () => (
   <>
     <header className="border-b">
       <div className="container w-full mx-auto flex h-16 items-center justify-between">
         <h1 className="text-2xl font-bold">Product management</h1>
+        <Navbar />
         <UserMenu />
       </div>
     </header>

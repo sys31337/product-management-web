@@ -24,8 +24,10 @@ const Login = () => {
     const userData = {
       userId: data._id,
       fullname: data.fullname,
+      email: data.email,
       accessToken: data.accessToken,
       refreshToken: data.refreshToken,
+      role: data.role,
     };
     dispatch({type: 'USER', payload: userData})
     authService.saveUserInfo(userData);

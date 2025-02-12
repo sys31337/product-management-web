@@ -9,26 +9,20 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { LogOut, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import authService from '../services/auth';
 
-const NavList = [
-  { id: 0, label: 'Home', href: '/', },
-  { id: 1, label: 'Products', href: '/products', },
-  { id: 2, label: 'Categories', href: '/categories', }
-]
 
 const UserMenu: React.FC = () => {
   const { user } = useAuth();
   const initials = user?.fullname?.[0] || 'U';
 
   const handleLogout = async () => {
-
+    authService.resetUserInfo();
+    location.replace('/login');
   };
 
   return !user ? (<Link to="/login">Login</Link>) : (
     <div className='flex items-center gap-2'>
-      <ul className='flex gap-2'>
-        {NavList.map(({id, label, href}) => <li key={id}><Link to={href}>{label}</Link></li>)}
-      </ul>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">

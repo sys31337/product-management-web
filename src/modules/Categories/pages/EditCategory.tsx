@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useGetCategories } from '@/api/useCategories';
 import Loading from '@/shared/components/Loading';
-import { Category } from '@/shared/types/category';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';

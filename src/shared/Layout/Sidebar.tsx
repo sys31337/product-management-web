@@ -3,7 +3,7 @@ import { BiCheckShield, BiHomeAlt2, BiLogIn } from 'react-icons/bi';
 import { SiFivem, SiDiscord } from 'react-icons/si';
 
 interface SideBarIconProps {
-  icon: JSX.Element;
+  icon: React.JSX.Element;
   text?: string;
 }
 

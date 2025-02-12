@@ -19,11 +19,11 @@ const refreshAccessToken = async (currentRefreshToken: string) => {
     url: `${cfg.api}/api/v1/users/refresh`,
     headers: { Authorization: `Refresh ${currentRefreshToken}` }
   });
-  const { data: { accessToken, refreshToken } } = response;
+  const { data: { accessToken, refreshToken, email, role } } = response;
   const { userId, fullname } = parseJwt(accessToken);
 
   const userData = {
-    userId, fullname, accessToken, refreshToken,
+    userId, fullname, accessToken, refreshToken, email, role,
   };
 
   authService.saveUserInfo(userData);
@@ -50,7 +50,7 @@ axiosInstance.interceptors.request.use(
         } catch (error) {
           console.log(error);
           authService.resetUserInfo();
-          location.replace('/connexion');
+          location.replace('/login');
         }
       } else {
         config.headers.Authorization = `Bearer ${accessToken}`;

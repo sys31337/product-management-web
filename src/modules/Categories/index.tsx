@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 const CreateCategory = React.lazy(() => import('./pages/CreateCategory'));
 const EditCategory = React.lazy(() => import('./pages/EditCategory'));

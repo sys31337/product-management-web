@@ -1,3 +1,11 @@
+export interface LoggedUser extends Payload {
+  fullname?: string;
+  email: string;
+  accessToken: string;
+  refreshToken: string;
+  role: 'CLIENT' | 'MANAGER' | 'ADMIN';
+}
+
 export interface User {
   fullname?: string;
   avatar?: string;
